@@ -1,0 +1,10 @@
+{
+  "codexVersion": "0.162.1",
+  "date": "2026-11-09",
+  "fixture": "Harmless executable named pkill; prints sentinel only",
+  "initialJsonDenyExit0Blocked": false,
+  "finalExit2Blocked": true,
+  "guardInvocationObserved": true,
+  "commandExecutionEventsAfterDeny": 0,
+  "scope": "Temporary invocation-only trust; read-only execution; no global config change"
+}

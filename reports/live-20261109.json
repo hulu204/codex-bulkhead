@@ -1,0 +1,668 @@
+{
+  "schemaVersion": 1,
+  "kind": "codex-cli-live",
+  "createdAt": "2026-11-09T02:58:44.483Z",
+  "model": "gpt-6.1-sol",
+  "node": "v25.9.0",
+  "platform": "darwin",
+  "cpuCount": 10,
+  "totalMemoryGb": 24,
+  "tasksPerLevel": 8,
+  "levels": [
+    {
+      "jobs": 1,
+      "wallMs": 135042,
+      "success": 8,
+      "turnOverlapPeak": 1,
+      "throughputPerMinute": 3.554449726751677,
+      "speedup": 1,
+      "rows": [
+        {
+          "index": 0,
+          "expected": "BULKHEAD_OK_0_493",
+          "ok": true,
+          "queuedAt": 1794193124591,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193128075,
+          "answer": "BULKHEAD_OK_0_493",
+          "turnCompletedAt": 1794193133204,
+          "usage": {
+            "input_tokens": 25265,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 13,
+            "reasoning_output_tokens": 0
+          },
+          "finishedAt": 1794193135874,
+          "exitCode": 0
+        },
+        {
+          "index": 1,
+          "expected": "BULKHEAD_OK_1_540",
+          "ok": true,
+          "queuedAt": 1794193124592,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193240547,
+          "answer": "BULKHEAD_OK_1_540",
+          "turnCompletedAt": 1794193246396,
+          "usage": {
+            "input_tokens": 25004,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 28,
+            "reasoning_output_tokens": 13
+          },
+          "finishedAt": 1794193249523,
+          "exitCode": 0
+        },
+        {
+          "index": 2,
+          "expected": "BULKHEAD_OK_2_589",
+          "ok": true,
+          "queuedAt": 1794193124592,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193250012,
+          "answer": "BULKHEAD_OK_2_589",
+          "turnCompletedAt": 1794193256778,
+          "usage": {
+            "input_tokens": 25004,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 27,
+            "reasoning_output_tokens": 12
+          },
+          "finishedAt": 1794193259632,
+          "exitCode": 0
+        },
+        {
+          "index": 3,
+          "expected": "BULKHEAD_OK_3_640",
+          "ok": true,
+          "queuedAt": 1794193124593,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193206162,
+          "answer": "BULKHEAD_OK_3_640",
+          "turnCompletedAt": 1794193216153,
+          "usage": {
+            "input_tokens": 25004,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 13,
+            "reasoning_output_tokens": 0
+          },
+          "finishedAt": 1794193220122,
+          "exitCode": 0
+        },
+        {
+          "index": 4,
+          "expected": "BULKHEAD_OK_4_693",
+          "ok": true,
+          "queuedAt": 1794193124594,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193136815,
+          "answer": "BULKHEAD_OK_4_693",
+          "turnCompletedAt": 1794193142829,
+          "usage": {
+            "input_tokens": 25004,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 29,
+            "reasoning_output_tokens": 14
+          },
+          "finishedAt": 1794193145670,
+          "exitCode": 0
+        },
+        {
+          "index": 5,
+          "expected": "BULKHEAD_OK_5_748",
+          "ok": true,
+          "queuedAt": 1794193124594,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193187634,
+          "answer": "BULKHEAD_OK_5_748",
+          "turnCompletedAt": 1794193193644,
+          "usage": {
+            "input_tokens": 25004,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 29,
+            "reasoning_output_tokens": 14
+          },
+          "finishedAt": 1794193196563,
+          "exitCode": 0
+        },
+        {
+          "index": 6,
+          "expected": "BULKHEAD_OK_6_805",
+          "ok": true,
+          "queuedAt": 1794193124595,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193197426,
+          "answer": "BULKHEAD_OK_6_805",
+          "turnCompletedAt": 1794193202670,
+          "usage": {
+            "input_tokens": 25004,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 29,
+            "reasoning_output_tokens": 14
+          },
+          "finishedAt": 1794193205626,
+          "exitCode": 0
+        },
+        {
+          "index": 7,
+          "expected": "BULKHEAD_OK_7_864",
+          "ok": true,
+          "queuedAt": 1794193124595,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193174690,
+          "answer": "BULKHEAD_OK_7_864",
+          "turnCompletedAt": 1794193181030,
+          "usage": {
+            "input_tokens": 25004,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 28,
+            "reasoning_output_tokens": 13
+          },
+          "finishedAt": 1794193186731,
+          "exitCode": 0
+        }
+      ]
+    },
+    {
+      "jobs": 2,
+      "wallMs": 70929,
+      "success": 8,
+      "turnOverlapPeak": 2,
+      "throughputPerMinute": 6.767330710992683,
+      "speedup": 1.9039039039039038,
+      "rows": [
+        {
+          "index": 0,
+          "expected": "BULKHEAD_OK_0_493",
+          "ok": true,
+          "queuedAt": 1794193259634,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193313948,
+          "answer": "BULKHEAD_OK_0_493",
+          "turnCompletedAt": 1794193321248,
+          "usage": {
+            "input_tokens": 25002,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 28,
+            "reasoning_output_tokens": 13
+          },
+          "finishedAt": 1794193326731,
+          "exitCode": 0
+        },
+        {
+          "index": 1,
+          "expected": "BULKHEAD_OK_1_540",
+          "ok": true,
+          "queuedAt": 1794193259635,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193318292,
+          "answer": "BULKHEAD_OK_1_540",
+          "turnCompletedAt": 1794193326371,
+          "usage": {
+            "input_tokens": 25002,
+            "cached_input_tokens": 23808,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 28,
+            "reasoning_output_tokens": 13
+          },
+          "finishedAt": 1794193330563,
+          "exitCode": 0
+        },
+        {
+          "index": 2,
+          "expected": "BULKHEAD_OK_2_589",
+          "ok": true,
+          "queuedAt": 1794193259635,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193303191,
+          "answer": "BULKHEAD_OK_2_589",
+          "turnCompletedAt": 1794193309898,
+          "usage": {
+            "input_tokens": 25002,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 30,
+            "reasoning_output_tokens": 15
+          },
+          "finishedAt": 1794193313511,
+          "exitCode": 0
+        },
+        {
+          "index": 3,
+          "expected": "BULKHEAD_OK_3_640",
+          "ok": true,
+          "queuedAt": 1794193259635,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193305864,
+          "answer": "BULKHEAD_OK_3_640",
+          "turnCompletedAt": 1794193312517,
+          "usage": {
+            "input_tokens": 25002,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 28,
+            "reasoning_output_tokens": 13
+          },
+          "finishedAt": 1794193317983,
+          "exitCode": 0
+        },
+        {
+          "index": 4,
+          "expected": "BULKHEAD_OK_4_693",
+          "ok": true,
+          "queuedAt": 1794193259635,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193293203,
+          "answer": "BULKHEAD_OK_4_693",
+          "turnCompletedAt": 1794193299742,
+          "usage": {
+            "input_tokens": 25002,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 29,
+            "reasoning_output_tokens": 14
+          },
+          "finishedAt": 1794193302697,
+          "exitCode": 0
+        },
+        {
+          "index": 5,
+          "expected": "BULKHEAD_OK_5_748",
+          "ok": true,
+          "queuedAt": 1794193259635,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193276266,
+          "answer": "BULKHEAD_OK_5_748",
+          "turnCompletedAt": 1794193283553,
+          "usage": {
+            "input_tokens": 25002,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 28,
+            "reasoning_output_tokens": 13
+          },
+          "finishedAt": 1794193286888,
+          "exitCode": 0
+        },
+        {
+          "index": 6,
+          "expected": "BULKHEAD_OK_6_805",
+          "ok": true,
+          "queuedAt": 1794193259636,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193276266,
+          "answer": "BULKHEAD_OK_6_805",
+          "turnCompletedAt": 1794193282882,
+          "usage": {
+            "input_tokens": 25002,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 28,
+            "reasoning_output_tokens": 13
+          },
+          "finishedAt": 1794193288323,
+          "exitCode": 0
+        },
+        {
+          "index": 7,
+          "expected": "BULKHEAD_OK_7_864",
+          "ok": true,
+          "queuedAt": 1794193259636,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193293411,
+          "answer": "BULKHEAD_OK_7_864",
+          "turnCompletedAt": 1794193299213,
+          "usage": {
+            "input_tokens": 25002,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 29,
+            "reasoning_output_tokens": 14
+          },
+          "finishedAt": 1794193305444,
+          "exitCode": 0
+        }
+      ]
+    },
+    {
+      "jobs": 4,
+      "wallMs": 25897,
+      "success": 8,
+      "turnOverlapPeak": 4,
+      "throughputPerMinute": 18.534965440012357,
+      "speedup": 5.214580839479477,
+      "rows": [
+        {
+          "index": 0,
+          "expected": "BULKHEAD_OK_0_493",
+          "ok": true,
+          "queuedAt": 1794193330565,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193331574,
+          "answer": "BULKHEAD_OK_0_493",
+          "turnCompletedAt": 1794193337620,
+          "usage": {
+            "input_tokens": 25004,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 13,
+            "reasoning_output_tokens": 0
+          },
+          "finishedAt": 1794193340762,
+          "exitCode": 0
+        },
+        {
+          "index": 1,
+          "expected": "BULKHEAD_OK_1_540",
+          "ok": true,
+          "queuedAt": 1794193330566,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193331521,
+          "answer": "BULKHEAD_OK_1_540",
+          "turnCompletedAt": 1794193338303,
+          "usage": {
+            "input_tokens": 25004,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 13,
+            "reasoning_output_tokens": 0
+          },
+          "finishedAt": 1794193341246,
+          "exitCode": 0
+        },
+        {
+          "index": 2,
+          "expected": "BULKHEAD_OK_2_589",
+          "ok": true,
+          "queuedAt": 1794193330567,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193344346,
+          "answer": "BULKHEAD_OK_2_589",
+          "turnCompletedAt": 1794193350478,
+          "usage": {
+            "input_tokens": 25004,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 13,
+            "reasoning_output_tokens": 0
+          },
+          "finishedAt": 1794193353657,
+          "exitCode": 0
+        },
+        {
+          "index": 3,
+          "expected": "BULKHEAD_OK_3_640",
+          "ok": true,
+          "queuedAt": 1794193330568,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193341176,
+          "answer": "BULKHEAD_OK_3_640",
+          "turnCompletedAt": 1794193348081,
+          "usage": {
+            "input_tokens": 25004,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 29,
+            "reasoning_output_tokens": 14
+          },
+          "finishedAt": 1794193351575,
+          "exitCode": 0
+        },
+        {
+          "index": 4,
+          "expected": "BULKHEAD_OK_4_693",
+          "ok": true,
+          "queuedAt": 1794193330569,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193331542,
+          "answer": "BULKHEAD_OK_4_693",
+          "turnCompletedAt": 1794193339710,
+          "usage": {
+            "input_tokens": 25004,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 13,
+            "reasoning_output_tokens": 0
+          },
+          "finishedAt": 1794193343943,
+          "exitCode": 0
+        },
+        {
+          "index": 5,
+          "expected": "BULKHEAD_OK_5_748",
+          "ok": true,
+          "queuedAt": 1794193330570,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193341504,
+          "answer": "BULKHEAD_OK_5_748",
+          "turnCompletedAt": 1794193349326,
+          "usage": {
+            "input_tokens": 25004,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 30,
+            "reasoning_output_tokens": 15
+          },
+          "finishedAt": 1794193352452,
+          "exitCode": 0
+        },
+        {
+          "index": 6,
+          "expected": "BULKHEAD_OK_6_805",
+          "ok": true,
+          "queuedAt": 1794193330571,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193331555,
+          "answer": "BULKHEAD_OK_6_805",
+          "turnCompletedAt": 1794193341812,
+          "usage": {
+            "input_tokens": 25004,
+            "cached_input_tokens": 23808,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 29,
+            "reasoning_output_tokens": 14
+          },
+          "finishedAt": 1794193346144,
+          "exitCode": 0
+        },
+        {
+          "index": 7,
+          "expected": "BULKHEAD_OK_7_864",
+          "ok": true,
+          "queuedAt": 1794193330571,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193346641,
+          "answer": "BULKHEAD_OK_7_864",
+          "turnCompletedAt": 1794193353410,
+          "usage": {
+            "input_tokens": 25004,
+            "cached_input_tokens": 24832,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 29,
+            "reasoning_output_tokens": 14
+          },
+          "finishedAt": 1794193356462,
+          "exitCode": 0
+        }
+      ]
+    },
+    {
+      "jobs": 8,
+      "wallMs": 15386,
+      "success": 8,
+      "turnOverlapPeak": 8,
+      "throughputPerMinute": 31.197192252697256,
+      "speedup": 8.776940075393215,
+      "rows": [
+        {
+          "index": 0,
+          "expected": "BULKHEAD_OK_0_493",
+          "ok": true,
+          "queuedAt": 1794193356464,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193361795,
+          "answer": "BULKHEAD_OK_0_493",
+          "turnCompletedAt": 1794193368885,
+          "usage": {
+            "input_tokens": 25265,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 13,
+            "reasoning_output_tokens": 0
+          },
+          "finishedAt": 1794193371803,
+          "exitCode": 0
+        },
+        {
+          "index": 1,
+          "expected": "BULKHEAD_OK_1_540",
+          "ok": true,
+          "queuedAt": 1794193356465,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193362417,
+          "answer": "BULKHEAD_OK_1_540",
+          "turnCompletedAt": 1794193368910,
+          "usage": {
+            "input_tokens": 21062,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 29,
+            "reasoning_output_tokens": 14
+          },
+          "finishedAt": 1794193371829,
+          "exitCode": 0
+        },
+        {
+          "index": 2,
+          "expected": "BULKHEAD_OK_2_589",
+          "ok": true,
+          "queuedAt": 1794193356466,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193361062,
+          "answer": "BULKHEAD_OK_2_589",
+          "turnCompletedAt": 1794193367298,
+          "usage": {
+            "input_tokens": 25265,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 29,
+            "reasoning_output_tokens": 14
+          },
+          "finishedAt": 1794193370944,
+          "exitCode": 0
+        },
+        {
+          "index": 3,
+          "expected": "BULKHEAD_OK_3_640",
+          "ok": true,
+          "queuedAt": 1794193356466,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193362096,
+          "answer": "BULKHEAD_OK_3_640",
+          "turnCompletedAt": 1794193368043,
+          "usage": {
+            "input_tokens": 25265,
+            "cached_input_tokens": 25088,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 29,
+            "reasoning_output_tokens": 14
+          },
+          "finishedAt": 1794193370818,
+          "exitCode": 0
+        },
+        {
+          "index": 4,
+          "expected": "BULKHEAD_OK_4_693",
+          "ok": true,
+          "queuedAt": 1794193356467,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193361035,
+          "answer": "BULKHEAD_OK_4_693",
+          "turnCompletedAt": 1794193366262,
+          "usage": {
+            "input_tokens": 25265,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 27,
+            "reasoning_output_tokens": 12
+          },
+          "finishedAt": 1794193369221,
+          "exitCode": 0
+        },
+        {
+          "index": 5,
+          "expected": "BULKHEAD_OK_5_748",
+          "ok": true,
+          "queuedAt": 1794193356468,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193361464,
+          "answer": "BULKHEAD_OK_5_748",
+          "turnCompletedAt": 1794193366617,
+          "usage": {
+            "input_tokens": 25265,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 13,
+            "reasoning_output_tokens": 0
+          },
+          "finishedAt": 1794193369577,
+          "exitCode": 0
+        },
+        {
+          "index": 6,
+          "expected": "BULKHEAD_OK_6_805",
+          "ok": true,
+          "queuedAt": 1794193356470,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193361170,
+          "answer": "BULKHEAD_OK_6_805",
+          "turnCompletedAt": 1794193366812,
+          "usage": {
+            "input_tokens": 25265,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 30,
+            "reasoning_output_tokens": 15
+          },
+          "finishedAt": 1794193371850,
+          "exitCode": 0
+        },
+        {
+          "index": 7,
+          "expected": "BULKHEAD_OK_7_864",
+          "ok": true,
+          "queuedAt": 1794193356472,
+          "requestEvents": 0,
+          "turnStartedAt": 1794193361424,
+          "answer": "BULKHEAD_OK_7_864",
+          "turnCompletedAt": 1794193366281,
+          "usage": {
+            "input_tokens": 25265,
+            "cached_input_tokens": 12288,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 13,
+            "reasoning_output_tokens": 0
+          },
+          "finishedAt": 1794193369197,
+          "exitCode": 0
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Single exploratory run per level; order and cache may affect timings.",
+    "Concurrent turn intervals measure client activity, not simultaneous backend inference.",
+    "Tiny arithmetic prompts without tools; does not measure coding productivity or maximum account capacity.",
+    "Independent CLI sessions; does not alter native subagent limits."
+  ],
+  "codexVersion": "codex-cli 0.162.1"
+}

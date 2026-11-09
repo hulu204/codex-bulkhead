@@ -1,0 +1,44 @@
+#!/usr/bin/env node
+'use strict'
+const path = require('path')
+const os = require('os')
+const fs = require('fs')
+const args = process.argv.slice(2)
+const command = args.shift()
+async function main() {
+  if (command === 'scan') return require('../src/scan').main(args)
+  if (command === 'scan-db') {
+    const {bound}=require('../src/scan'),now=Date.now()
+    const options={path:path.join(os.homedir(),'.codex','thread_history_1.sqlite'),since:'30d',until:now}
+    for(let i=0;i<args.length;i+=2){const key=args[i]?.slice(2);if(!['path','since','until'].includes(key)||args[i+1]===undefined)throw Error('scan-db accepts --path, --since, --until');options[key]=args[i+1]}
+    const result=require('child_process').spawnSync('python3',[path.resolve(__dirname,'../src/db-scan.py'),'--path',options.path,'--since-ms',String(bound(options.since,now)),'--until-ms',String(bound(options.until,now))],{stdio:'inherit'})
+    if(result.error)throw Error('scan-db requires Python 3: '+result.error.message)
+    process.exitCode=result.status===null?1:result.status;return
+  }
+  if (command === 'guard') {
+    const result = await require('../src/guard').main()
+    if (result.deny) {
+      console.error(result.deny.hookSpecificOutput.permissionDecisionReason)
+      process.exitCode = 2
+    }
+    else if (result.warning) console.error(result.warning)
+    return
+  }
+  if (command === 'run') return require('../src/runner').main(args)
+  if (command === 'status') {
+    console.log(JSON.stringify(await require('../src/runner').status(), null, 2)); return
+  }
+  if (command === 'port') {
+    console.log(await require('../src/runner').freePort()); return
+  }
+  if (command === 'doctor') {
+    const stateDir = process.env.CODEX_BULKHEAD_STATE_DIR || path.join(os.homedir(), '.codex', 'bulkhead')
+    console.log(JSON.stringify({version:require('../package.json').version,node:process.version,platform:process.platform,stateDir,
+      hookManifest:fs.existsSync(path.join(__dirname,'../hooks/hooks.json')),
+      notice:'Review and trust hooks in Codex /hooks before relying on protection. Doctor does not prove installation or trust.',
+      memory: require('../vendor/claude-bulkhead/src/memory').readMemory()},null,2)); return
+  }
+  console.log('codex-bulkhead: scan [--since 30d] | scan-db [--since 30d] | run [--jobs 2] [--gb 1] [--state-dir DIR] -- COMMAND ARGS... | status | port | doctor | guard')
+  if (command && !['help','--help','-h'].includes(command)) process.exitCode=1
+}
+main().catch(error => { console.error(`codex-bulkhead: ${error.message}`); process.exitCode=1 })

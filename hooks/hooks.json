@@ -1,0 +1,10 @@
+{
+  "description": "Local coordination guards for concurrent Codex sessions.",
+  "hooks": {
+    "SessionStart": [{ "hooks": [{ "type": "command", "command": "node \"${PLUGIN_ROOT}/bin/codex-bulkhead\" guard", "timeout": 3 }] }],
+    "SubagentStart": [{ "hooks": [{ "type": "command", "command": "node \"${PLUGIN_ROOT}/bin/codex-bulkhead\" guard", "timeout": 3 }] }],
+    "SubagentStop": [{ "hooks": [{ "type": "command", "command": "node \"${PLUGIN_ROOT}/bin/codex-bulkhead\" guard", "timeout": 3 }] }],
+    "SessionEnd": [{ "hooks": [{ "type": "command", "command": "node \"${PLUGIN_ROOT}/bin/codex-bulkhead\" guard", "timeout": 3 }] }],
+    "PreToolUse": [{ "matcher": "^Bash$", "hooks": [{ "type": "command", "command": "node \"${PLUGIN_ROOT}/bin/codex-bulkhead\" guard", "timeout": 3 }] }]
+  }
+}

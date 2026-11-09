@@ -1,0 +1,16 @@
+{
+  "name": "codex-bulkhead",
+  "version": "0.1.0",
+  "description": "Local resource coordination, Codex hooks, and private transcript diagnostics",
+  "license": "MIT",
+  "author": "hulu204",
+  "repository": "github:hulu204/codex-bulkhead",
+  "engines": { "node": ">=18" },
+  "bin": { "codex-bulkhead": "bin/codex-bulkhead" },
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "test:guards": "node --test vendor/claude-bulkhead/test/kill-guard.test.js vendor/claude-bulkhead/test/disk-guard.test.js vendor/claude-bulkhead/test/basics.test.js vendor/claude-bulkhead/test/checkout-guard.test.js vendor/claude-bulkhead/test/wait-guard.test.js vendor/claude-bulkhead/test/shell.test.js",
+    "bench": "node bench/parallel.js"
+  },
+  "files": ["bin", "src", "hooks", "skills", "plugin.json", "vendor/claude-bulkhead/src", "vendor/claude-bulkhead/LICENSE", "vendor/claude-bulkhead/PROVENANCE.md", "README.md", "LICENSE"]
+}

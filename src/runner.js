@@ -51,8 +51,10 @@ async function freePort(excluded=[]) {
   throw Error('No available port found')
 }
 function validate(options) {
-  for(const [name,val] of Object.entries({jobs:options.jobs,gb:options.gb,waitMs:options.waitMs,timeoutMs:options.timeoutMs})) {
-    if(!Number.isFinite(val)||val<0||(name==='jobs'&&(!Number.isInteger(val)||val<1||val>64)))throw Error(`Invalid ${name}`)
+  const {jobs}=options
+  if(jobs!=null&&(!Number.isInteger(jobs)||jobs<1||jobs>64))throw Error('Invalid jobs')
+  for(const [name,val] of Object.entries({gb:options.gb,waitMs:options.waitMs,timeoutMs:options.timeoutMs})) {
+    if(!Number.isFinite(val)||val<0)throw Error(`Invalid ${name}`)
   }
 }
 async function acquire(options, cancelled=()=>false) {
@@ -64,16 +66,21 @@ async function acquire(options, cancelled=()=>false) {
     while(!cancelled()) {
       const acquired=await locked(dir,async()=>{
         let config=read(dir,'limits.json',null)
-        if(!config) {config={maxJobs:options.jobs,budgetGb:Math.max(1,os.totalmem()/2**30*0.7)};atomic(path.join(dir,'limits.json'),config)}
-        if(config.maxJobs!==options.jobs)throw Error(`Shared state fixes maxJobs=${config.maxJobs}; use the same --jobs value or a separate state directory.`)
+        if(!config) {
+          config={maxJobs:options.jobs??null,budgetGb:Math.max(1,os.totalmem()/2**30*0.7)}
+          atomic(path.join(dir,'limits.json'),config)
+        }
+        // An omitted cap follows the shared policy, including a cap saved by older versions.
+        if(options.jobs!=null&&config.maxJobs!==options.jobs)throw Error(`Shared state fixes maxJobs=${config.maxJobs}; use the same --jobs value or a separate state directory.`)
         if(options.gb>config.budgetGb)throw Error('Requested GB exceeds the shared memory reservation budget')
         const state=load(dir)
         if(!state.waiting.some(x=>x.id===id)){state.waiting.push(job);registered=true}
         const mem=readMemory()
         const reservation=state.active.reduce((n,x)=>n+x.gb,0)
-        const room=state.active.length<config.maxJobs && reservation+options.gb<=config.budgetGb
+        const withinCap=config.maxJobs===null||state.active.length<config.maxJobs
+        const withinBudget=reservation+options.gb<=config.budgetGb
         const memoryOK=mem.freeGb>=Math.min(3,mem.totalGb*0.15)+options.gb
-        if(room && memoryOK && state.waiting[0].id===id) {
+        if(withinCap && withinBudget && memoryOK && state.waiting[0].id===id) {
           job.startedAt=Date.now();job.port=await freePort(state.active.map(x=>x.port))
           state.waiting=state.waiting.filter(x=>x.id!==id);state.active.push(job)
           atomic(path.join(dir,'jobs.json'),state);return job
@@ -94,7 +101,7 @@ async function release(dir,id) {
   await locked(dir,()=>{const state=load(dir);state.active=state.active.filter(x=>x.id!==id);state.waiting=state.waiting.filter(x=>x.id!==id);atomic(path.join(dir,'jobs.json'),state)})
 }
 async function run(options) {
-  options={jobs:2,gb:1,waitMs:60000,timeoutMs:300000,command:[],...options}
+  options={gb:0,waitMs:60000,timeoutMs:300000,command:[],...options}
   if(!options.command.length)throw Error('Pass an executable and arguments after --')
   if(process.platform==='win32')throw Error('The managed runner currently supports macOS and Linux only')
   const dir=options.stateDir||root();let cancelled=false,child,interrupted=false,timer

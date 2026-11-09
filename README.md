@@ -10,7 +10,7 @@ Node.js 18+，无运行时 npm 依赖。任务启动器支持 macOS / Linux。**
 | 会话登记 | SessionStart/End、SubagentStart/Stop；不同 actor 独立记录 |
 | 工作区保护 | 已登记的其他会话近期使用同一 checkout 时，阻止 checkout、全量暂存等操作 |
 | 端口 | 拒绝已知服务启动时的 IPv4 loopback 端口冲突；提供空闲端口建议 |
-| `run` | 多进程共享 FIFO 队列、并发上限、声明内存预算、可用内存门槛 |
+| `run` | 分配独立端口，按内存余量排队，可选共享并发上限 |
 | 生命周期 | 只清理 `run` 自己启动的进程组，不按名字杀进程，不推断其他 Codex 进程归属 |
 | `scan` | 只读分析本地 Codex JSONL，不执行历史命令，不返回命令原文 |
 
@@ -21,7 +21,7 @@ git clone https://github.com/hulu204/codex-bulkhead.git
 cd codex-bulkhead
 node bin/codex-bulkhead doctor
 node bin/codex-bulkhead scan --since 30d > scan.json
-node bin/codex-bulkhead run --jobs 2 --gb 2 -- npm test
+node bin/codex-bulkhead run --gb 2 -- npm test
 node bin/codex-bulkhead status
 ```
 
@@ -38,13 +38,17 @@ node bin/codex-bulkhead status
 ### 隔离重任务
 
 ```sh
-codex-bulkhead run --jobs 2 --gb 4 --cwd /path/to/worktree -- npm test
-codex-bulkhead run --jobs 2 --gb 1 -- sh -c 'npm run dev -- --port "$BULKHEAD_PORT"'
+codex-bulkhead run -- sh -c 'npm run dev -- --port "$BULKHEAD_PORT"'
+codex-bulkhead run --gb 4 --cwd /path/to/worktree -- npm test
 ```
 
 `run` 按 argv 启动程序，不自动执行 shell。只有明确使用 `sh -c` 时才做 shell 展开。
 
-`--jobs` 默认 2；同一状态目录第一次运行时固定共享上限，后续不一致的值会被拒绝。`--gb` 是估算内存声明，默认 1 GB；声明总额受物理内存 70% 的预算约束，同时保留约 15% / 最多 3 GB 可用内存。它不实施操作系统级内存限制。`--wait-ms` 默认 60000；`--timeout-ms` 默认 300000，超时返回 124。自定义命令退出码会保留。
+新的状态目录默认无固定并发上限。运行前会检查可用内存，保留约 15%（最多 3 GiB）的余量。内存不足的任务按提交顺序等待。可用 `--gb N` 声明预计额外需要的内存（GiB），默认 0 表示未声明。所有任务的声明总额受共享内存预算约束，通常为物理内存的 70%。检查发生在启动前，运行中的任务仍可能使用更多内存。
+
+如需固定并发上限，可在初始化状态目录时传 `--jobs N`。省略该选项会沿用目录已保存的上限。旧版保存的 `maxJobs: 2` 也会保留，因为旧格式无法区分默认值与手动设置。要切换旧目录，先确认没有运行或排队的任务，再把该目录 `limits.json` 的 `maxJobs` 设为 `null`。
+
+`--wait-ms` 默认 60000。`--timeout-ms` 默认 300000，超时返回 124。自定义命令退出码会保留。
 
 `CODEX_BULKHEAD_STATE_DIR` 或 `run --state-dir` 可指定共享状态目录，默认 `~/.codex/bulkhead`。只有共用状态目录的参与者才彼此协调。不要用多个状态目录绕过同一机器的资源预算。
 

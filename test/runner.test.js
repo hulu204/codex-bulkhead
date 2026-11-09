@@ -14,9 +14,74 @@ const close=child=>new Promise((resolve,reject)=>{child.once('error',reject);chi
 const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms))
 async function waitFor(check,timeout=3000) {
   const until=Date.now()+timeout
-  while(Date.now()<until) {const value=check();if(value)return value;await sleep(20)}
+  while(Date.now()<until) {const value=await check();if(value)return value;await sleep(20)}
   throw Error('Timed out waiting for test condition')
 }
+const overlapScript=(out,holdMs)=>`
+  const fs=require('fs')
+  const emit=k=>fs.appendFileSync(${JSON.stringify(out)},JSON.stringify({k,at:Date.now(),pid:process.pid})+'\\n')
+  emit('start')
+  setTimeout(()=>emit('end'),${holdMs})
+`
+function peakOverlap(out) {
+  const events=fs.readFileSync(out,'utf8').trim().split('\n').map(JSON.parse).sort((a,b)=>a.at-b.at||(a.k==='end'?-1:1))
+  let active=new Set(),peak=0
+  for(const event of events) {
+    if(event.k==='start') {active.add(event.pid);peak=Math.max(peak,active.size)}
+    else active.delete(event.pid)
+  }
+  return peak
+}
+test('CLI defaults do not impose a fixed two-worker cap when memory is available',async()=>{
+  const dir=tmp(),readyDir=path.join(dir,'ready')
+  fs.mkdirSync(readyDir)
+  const script=`
+    const fs=require('fs')
+    const path=require('path')
+    const readyDir=${JSON.stringify(readyDir)}
+    fs.writeFileSync(path.join(readyDir,String(process.pid)),process.env.BULKHEAD_PORT)
+    const poll=setInterval(()=>{
+      if(fs.readdirSync(readyDir).length===8) {
+        clearInterval(poll)
+        clearTimeout(deadline)
+      }
+    },10)
+    const deadline=setTimeout(()=>{clearInterval(poll);process.exitCode=1},5000)
+  `
+  const args=[bin,'run','--state-dir',dir,'--',process.execPath,'-e',script]
+  const codes=await Promise.all(Array.from({length:8},()=>close(spawn(process.execPath,args,{stdio:'pipe'}))))
+  assert.deepEqual(codes,Array(8).fill(0))
+  const ports=fs.readdirSync(readyDir).map(pid=>fs.readFileSync(path.join(readyDir,pid),'utf8'))
+  assert.equal(new Set(ports).size,8)
+  assert.equal((await status(dir)).limits.maxJobs,null)
+})
+test('memory admission waits for available memory to recover before starting a worker',async()=>{
+  const stateDir=tmp(),started=path.join(stateDir,'started')
+  const savedMemory=process.env.BULKHEAD_TEST_MEMORY
+  let pending
+  process.env.BULKHEAD_TEST_MEMORY=JSON.stringify({totalGb:24,freeGb:2.9,commitPct:null})
+  try {
+    pending=run({stateDir,waitMs:5000,command:[process.execPath,'-e',`require('fs').writeFileSync(${JSON.stringify(started)},'started')`],stdio:'ignore'})
+    await waitFor(async()=>{const current=await status(stateDir);return current.waiting.length===1&&current.active.length===0})
+    assert.equal(fs.existsSync(started),false)
+    process.env.BULKHEAD_TEST_MEMORY=JSON.stringify({totalGb:24,freeGb:20,commitPct:null})
+    const result=await pending
+    assert.equal(result.code,0)
+    assert.equal(fs.existsSync(started),true)
+  } finally {
+    if(savedMemory===undefined)delete process.env.BULKHEAD_TEST_MEMORY
+    else process.env.BULKHEAD_TEST_MEMORY=savedMemory
+    if(pending)await pending.catch(()=>{})
+  }
+})
+test('a legacy persisted two-worker cap still applies when CLI omits --jobs',async()=>{
+  const dir=tmp(),out=path.join(dir,'events.jsonl')
+  fs.writeFileSync(path.join(dir,'limits.json'),JSON.stringify({maxJobs:2,budgetGb:16})+'\n')
+  const codes=await Promise.all(Array.from({length:4},()=>close(spawn(process.execPath,[bin,'run','--state-dir',dir,'--',process.execPath,'-e',overlapScript(out,700)],{stdio:'pipe'}))))
+  assert.deepEqual(codes,Array(4).fill(0))
+  assert.equal(peakOverlap(out),2)
+  assert.equal((await status(dir)).limits.maxJobs,2)
+})
 test('six independent processes respect two slots, unique ports, and release state',async()=>{
   const dir=tmp(),out=path.join(dir,'events.jsonl')
   const script=`const fs=require('fs');const emit=k=>fs.appendFileSync(${JSON.stringify(out)},JSON.stringify({k,at:Date.now(),pid:process.pid,port:process.env.BULKHEAD_PORT})+'\\n');emit('start');setTimeout(()=>{emit('end')},150)`

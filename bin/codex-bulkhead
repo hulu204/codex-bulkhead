@@ -38,7 +38,7 @@ async function main() {
       notice:'Review and trust hooks in Codex /hooks before relying on protection. Doctor does not prove installation or trust.',
       memory: require('../vendor/claude-bulkhead/src/memory').readMemory()},null,2)); return
   }
-  console.log('codex-bulkhead: scan [--since 30d] | scan-db [--since 30d] | run [--jobs 2] [--gb 1] [--state-dir DIR] -- COMMAND ARGS... | status | port | doctor | guard')
+  console.log('codex-bulkhead: scan [--since 30d] | scan-db [--since 30d] | run [--jobs N] [--gb N] [--state-dir DIR] -- COMMAND ARGS... | status | port | doctor | guard')
   if (command && !['help','--help','-h'].includes(command)) process.exitCode=1
 }
 main().catch(error => { console.error(`codex-bulkhead: ${error.message}`); process.exitCode=1 })
